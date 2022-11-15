@@ -1,9 +1,5 @@
 name: Conda Build
 
-env:
-  LABEL: main
-  #LABEL: dev
-
 on:
   release:
     types: [published]
@@ -24,6 +20,10 @@ jobs:
         run: |
           cd conda
           conda mambabuild .
+      - name: Test
+        run : |
+          conda install --use-local ska-gridder-nifty-cuda
+          python test.py
       - name: Publish to Conda
         shell: bash -l {0}
         run: |
