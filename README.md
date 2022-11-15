@@ -20,3 +20,6 @@ The repository is for building different Anaconda packages from [ska-gridder-nif
 - For safety, the upload to the Anaconda registry does not have a `--force` included per default. This means that when publishing, the existing package must be removed manually or the upload must be forced in the specific branch. It is recommended to archive the previous build before a build is overwritten.
 - The builds are triggered of GitHub Actions from branches following the [glob pattern](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#filter-pattern-cheat-sheet) `[0-9]*.[0-9]*.[dev0-9]*` on pushes and pull requests.
 - If you just want to merge the changes from main into a version branch, but not trigger a build from GitHub Actions, just set something like `[skip ci]` (see [Skipping workflow runs](https://docs.github.com/en/actions/managing-workflow-runs/skipping-workflow-runs)) in your commit message.
+
+## Package Creation Guide
+- [Publish a python package to Conda](https://medium.com/analytics-vidhya/publish-a-python-package-to-conda-b352eb0bcb2e) by [Dulaj Atapattu](https://dulajra.medium.com/) was of great help.

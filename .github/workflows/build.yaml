@@ -1,49 +1,31 @@
-name: Build Conda Package ska-gridder-nifty-cuda
+name: Conda Build
 
 env:
-  VERSION: 0.1.0
   LABEL: main
   #LABEL: dev
 
 on:
-  push:
-    branches:
-      - '[0-9]*.[0-9]*.[dev0-9]*'
-  pull_request:
-    branches:
-      - '[0-9]*.[0-9]*.[dev0-9]*'
-  workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
-  build:
+  conda-build:
     runs-on: ubuntu-20.04
     container: ghcr.io/i4ds/mambabuild-docker:latest
+
     steps:
+      - name: Install conda build
+        run: |
+          conda config --append channels conda-forge
+          conda config --append channels i4ds
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Build Conda
-        shell: bash -l {0}
         run: |
           cd conda
-          conda mambabuild -c i4ds -c conda-forge .
+          conda mambabuild .
       - name: Publish to Conda
         shell: bash -l {0}
         run: |
           conda activate base
           anaconda -t ${{ secrets.ANACONDA_SECRET }} upload /opt/conda/conda-bld/noarch/ska-gridder-nifty-cuda-*.tar.bz2 --label $LABEL
-  install_and_test:
-    needs: build
-    runs-on: ubuntu-20.04
-    container: ghcr.io/i4ds/mambabuild-docker:latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Install Curl
-        run: | 
-          apt-get update
-          apt-get install -y curl
-      - name: Install Package
-        shell: bash -l {0}
-        run: |
-          conda config --append channels conda-forge
-          bash test.sh

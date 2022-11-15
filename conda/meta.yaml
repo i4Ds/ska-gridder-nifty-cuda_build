@@ -1,26 +1,28 @@
 {% set name = "ska-gridder-nifty-cuda" %}
 
-build:
-  noarch: python
-  number: 0
-  script_env:
-    - VERSION
-
 package:
   name: {{ name|lower }}
-  version: {{ VERSION }}
+  version: 0.1.0
 
-source:
-  path: ../
+requirements:
+  host:
+    - python
+    - pip
+    - {{ pin_compatible('numpy') }}
+  build: 
+    - {{ compiler('cxx') }}
+
 
 build:
-  script: "{{ PYTHON }} setup.py install --single-version-externally-managed --record=record.txt"
+  script: "pip install git+http://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda.git@sim-874-python-wrapper#subdirectory=python"
+
+source:
+  path: ..
 
 about:
   home: https://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda
   license: Custom
   license_family: Other
-  license_file: LICENSE
   copyright: 
     - Copyright 2021 Adam Campbell, Anthony Griffin, Andrew Ensor, Seth Hall
     - Copyright 2021 High Performance Computing Research Laboratory, Auckland University of Technology (AUT)
