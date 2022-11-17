@@ -19,7 +19,7 @@ requirements:
     - {{ pin_compatible('numpy') }}
 
 build:
-  script: "pip install git+http://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda.git@sim-874-python-wrapper#subdirectory=python"
+  script: "pip install git+http://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda.git@sim-874-python-wrapper#subdirectory=python --no-deps --ignore-installed --no-cache-dir -vvv"
 
 about:
   home: https://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda
