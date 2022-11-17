@@ -19,7 +19,7 @@ jobs:
       - name: Build Conda
         run: |
           cd conda
-          conda mambabuild .
+          conda build .
       - name: Test
         run : |
           conda install --use-local ska-gridder-nifty-cuda
