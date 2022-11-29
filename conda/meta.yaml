@@ -10,16 +10,14 @@ env:
 requirements:
   build: 
     - {{ compiler('cxx') }}
+    - numpy {{ numpy }}
   host:
-    - python=3.9
+    - python
     - pip
-    - {{ pin_compatible('numpy') }}
+    - numpy {{ numpy }}
   run:
-    - python=3.9
-    - {{ pin_compatible('numpy') }}
-
-build:
-  script: "pip install git+http://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda.git@sim-874-python-wrapper#subdirectory=python --no-deps --ignore-installed --no-cache-dir -vvv"
+    - python
+    - numpy {{ numpy }}
 
 about:
   home: https://gitlab.com/ska-telescope/sdp/ska-gridder-nifty-cuda
